@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+<!-- create a registration form & set  store in local storage & compare with  login form validations and create a cards to redirecting the page -->
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registration and Login Form</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Registration Form -->
+        <h2>Register</h2>
+        <form id="registrationForm">
+            <input type="text" id="regUsername" placeholder="Username" required><br>
+            <input type="password" id="regPassword" placeholder="Password" required><br>
+            <button type="submit">Register</button>
+        </form>
+
+        <!-- Login Form -->
+        <h2>Login</h2>
+        <form id="loginForm">
+            <input type="text" id="loginUsername" placeholder="Username" required><br>
+            <input type="password" id="loginPassword" placeholder="Password" required><br>
+            <button type="submit">Login</button>
+        </form>
+
+        <!-- Card for Redirection -->
+        <div id="redirectCard" class="card" style="display:none;">
+            <h3>Welcome!</h3>
+            <p>You are logged in successfully.</p>
+            <button onclick="redirectToPage()">Go to Dashboard</button>
+        </div>
+    </div>
+
+  
+
+
+    <script>
+// Registration Form Handling
+document.getElementById('registrationForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+
+    const username = document.getElementById('regUsername').value;
+    const password = document.getElementById('regPassword').value;
+
+    if (username && password) {
+        const user = { username, password };
+        localStorage.setItem('user', JSON.stringify(user));
+        alert('Registration successful!');
+        document.getElementById('registrationForm').reset();
+    } else {
+        alert('Please fill in all fields.');
+    }
+});
+
+// Login Form Handling
+document.getElementById('loginForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+
+    const loginUsername = document.getElementById('loginUsername').value;
+    const loginPassword = document.getElementById('loginPassword').value;
+    const storedUser = JSON.parse(localStorage.getItem('user'));
+
+    if (storedUser && loginUsername === storedUser.username && loginPassword === storedUser.password) {
+        alert('Login successful!');
+        document.getElementById('loginForm').reset();
+        document.getElementById('redirectCard').style.display = 'block';
+    } else {
+        alert('Invalid username or password.');
+    }
+});
+
+// Redirection Handling
+function redirectToPage() {
+    window.location.href = 'dashboard.html'; // Replace with the actual page URL or path
+}
+
+    </script>
+</body>
+</html>
